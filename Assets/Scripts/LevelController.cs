@@ -25,7 +25,6 @@ public class LevelController : MonoBehaviour {
 	}
 
 	private IEnumerator LevelPlaying() {
-		int nextLevel;
 		uiText.text = "";
 		AsteroidController asteroidController = GetComponent<AsteroidController> ();
 		asteroidController.Spawn ();
