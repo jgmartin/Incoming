@@ -5,6 +5,7 @@ using System.Collections;
 public class LevelController : MonoBehaviour {
 
 	public Text uiText;
+	public bool controlDisabled = true;
 
 	void Start(){
 		StartCoroutine (GameLoop ());

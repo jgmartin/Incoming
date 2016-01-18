@@ -23,6 +23,8 @@ public class AsteroidController : MonoBehaviour {
 
 	IEnumerator SpawnWaves ()
 	{
+		LevelController levelController = GameObject.FindWithTag ("GameController").GetComponent<LevelController> ();
+		levelController.controlDisabled = false;
 		waveCount = 0f;
 		for (int i = 0; i < startWait; i++) {
 			int timeRemaining = (int)startWait - i;
@@ -30,6 +32,7 @@ public class AsteroidController : MonoBehaviour {
 			yield return new WaitForSeconds (1f);
 		}
 		asteroidText.text = "";
+		levelController.controlDisabled = true;
 		while (waveCount < waves)
 		{
 			for (int i = 0; i < hazardCount; i++)

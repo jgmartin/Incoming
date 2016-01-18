@@ -18,8 +18,8 @@ namespace UnityStandardAssets.Utility
 
         private void Update()
         {
-            // Make sure the user pressed the mouse down
-            if (!Input.GetMouseButtonDown(0))
+            // Return if the mouse isn't clicked or control is disabled
+			if (!Input.GetMouseButtonDown(0) || GameObject.FindWithTag("GameController").GetComponent<LevelController>().controlDisabled)
             {
                 return;
             }
