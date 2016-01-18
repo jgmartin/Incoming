@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class AsteroidController : MonoBehaviour {
 
 	public GameObject[] asteroids;
+	public Text asteroidText;
 	public Vector3 spawnValues;
 	public int hazardCount;
 	public float spawnWait;
@@ -22,13 +24,19 @@ public class AsteroidController : MonoBehaviour {
 	IEnumerator SpawnWaves ()
 	{
 		waveCount = 0f;
-		yield return new WaitForSeconds (startWait);
+		for (int i = 0; i < startWait; i++) {
+			int timeRemaining = (int)startWait - i;
+			asteroidText.text = timeRemaining.ToString();
+			yield return new WaitForSeconds (1f);
+		}
+		asteroidText.text = "";
 		while (waveCount < waves)
 		{
 			for (int i = 0; i < hazardCount; i++)
 			{
 				SpawnAsteroid ();
-				yield return new WaitForSeconds (spawnWait);
+				float randomWait = Random.Range (0.1f, spawnWait);
+				yield return new WaitForSeconds (randomWait);
 			}
 			waveCount++;
 			yield return new WaitForSeconds (waveWait);

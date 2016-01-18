@@ -7,7 +7,7 @@ public class OrbExplosion : MonoBehaviour {
 	public AudioClip audioClip;
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.tag != "Ground") {
+		if (collision.gameObject.tag != "Ground" && collision.gameObject.tag != "Structure") {
 			Explode (collision);
 		}
 	}

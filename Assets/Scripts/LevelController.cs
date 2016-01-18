@@ -12,7 +12,6 @@ public class LevelController : MonoBehaviour {
 
 	IEnumerator GameLoop() {
 		yield return StartCoroutine (DisplayStarting ());
-		yield return StartCoroutine (DisplayInstructions ());
 		yield return StartCoroutine (LevelPlaying());
 		yield return StartCoroutine (Restart());
 
@@ -24,12 +23,8 @@ public class LevelController : MonoBehaviour {
 		yield return new WaitForSeconds(3f);
 	}
 
-	private IEnumerator DisplayInstructions() {
-		uiText.text = "You have 30 seconds to construct defenses!";
-		yield return new WaitForSeconds(3f);
-	}
-
 	private IEnumerator LevelPlaying() {
+		int nextLevel;
 		uiText.text = "";
 		AsteroidController asteroidController = GetComponent<AsteroidController> ();
 		asteroidController.Spawn ();
@@ -37,7 +32,7 @@ public class LevelController : MonoBehaviour {
 			if (asteroidController.Finished ()) {
 				uiText.text = "The orb survived!";
 				yield return new WaitForSeconds (5f);
-				Application.LoadLevel ("Level02");
+				Application.LoadLevel (NextLevel());
 			}
 			yield return null;
 		}
@@ -47,11 +42,19 @@ public class LevelController : MonoBehaviour {
 		uiText.text = "The orb was destroyed!";
 		yield return new WaitForSeconds(5f);
 		PlayerScore.score = 0;
-		Application.LoadLevel ("Level01");
+		Application.LoadLevel (0);
 	}
 
 	private bool OrbIsAlive() {
 		return GameObject.FindWithTag ("Orb") != null;
+	}
+
+	private int NextLevel() {
+		if (Application.loadedLevel == (Application.levelCount - 1)) {
+			return Application.loadedLevel;
+		} else {
+			return Application.loadedLevel + 1;
+		}
 	}
 		
 }
